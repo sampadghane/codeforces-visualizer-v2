@@ -1,16 +1,198 @@
-# React + Vite
+# Codeforces Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based web application that visualizes a Codeforces user's profile and competitive programming statistics using the official Codeforces API.
 
-Currently, two official plugins are available:
+This project was originally built using React and Parcel. It is being migrated to a modern React + Vite setup while adding new features and improving the overall architecture.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Search any Codeforces user
+- Display user profile information
+- View current and maximum rating
+- Find the best contest rank
+- View the latest solved problem
+- Count total unique solved problems
+- Display tag-wise problem distribution
+- Loading shimmer while fetching data
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React
+- Vite
+- JavaScript (ES6+)
+- HTML5
+- CSS3
+- Codeforces REST API
+
+---
+
+## Codeforces APIs Used
+
+### User Information
+
+```
+https://codeforces.com/api/user.info
+```
+
+Returns:
+
+- Name
+- Profile photo
+- Current rating
+- Maximum rating
+- Organization
+- Country
+- City
+
+---
+
+### Rating History
+
+```
+https://codeforces.com/api/user.rating
+```
+
+Used to determine:
+
+- Best contest rank
+- Contest performance history
+
+---
+
+### Submission History
+
+```
+https://codeforces.com/api/user.status
+```
+
+Used to calculate:
+
+- Last solved problem
+- Total unique solved problems
+- Tag-wise solved problem statistics
+
+---
+
+## Project Structure
+
+```
+src
+│
+├── components
+│   ├── Header.jsx
+│   ├── Body.jsx
+│   ├── Footer.jsx
+│   └── CartShimmer.jsx
+│
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+```
+
+---
+
+## Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/sampadghane/codeforces-visualizer-v2.git
+```
+
+Move into the project
+
+```bash
+cd codeforces-visualizer-v2
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the development server
+
+```bash
+npm run dev
+```
+
+Open
+
+```
+http://localhost:5173
+```
+
+---
+
+## Current Workflow
+
+```
+User enters Codeforces handle
+            │
+            ▼
+Search button clicked
+            │
+            ▼
+Fetch data from Codeforces API
+            │
+            ▼
+Process response
+            │
+            ▼
+Render profile statistics
+```
+
+---
+
+## Planned Improvements
+
+- Compare two Codeforces users
+- Better error handling
+- Responsive UI
+- Rating comparison charts
+- Tag comparison charts
+- Contest history visualization
+- Improved loading states
+- Refactor API calls into reusable services
+- Better project structure
+- Dark mode
+
+---
+
+## Future Enhancements
+
+- Side-by-side user comparison
+- Shared solved problems
+- Strongest topic analysis
+- Weakest topic analysis
+- Contest performance graphs
+- Export statistics
+- Bookmark favourite handles
+
+---
+
+## Learning Objectives
+
+This project demonstrates:
+
+- React functional components
+- React Hooks
+- State management using useState
+- Side effects using useEffect
+- REST API integration
+- Asynchronous JavaScript
+- Data processing using Map and Set
+- Component-based architecture
+- Modern React development using Vite
+
+---
+
+## License
+
+This project is developed for learning purposes.

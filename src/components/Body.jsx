@@ -1,188 +1,148 @@
-// TODO:
-// 1. Refactor API calls into fetchUserData()
-// 2. Replace multiple states with a single user object
-// 3. Enable User 2 input
-// 4. Compare two Codeforces users
-
-
 import { useState, useEffect } from "react";
 import CartShimmer from "./CartShimmer";
 import UserProfile from "./UserProfile";
 import { fetchUserData } from "../services/codeforcesApi";
 
-let Body=()=>{
-   
-   
-    let [inputText, setInputText] = useState('');
-    let [searchText, setSearchText] = useState('');
-    let [JsonValue, setJsonValue] = useState(null)
-    let [bestRankData, setBestRankData] = useState(null);
-    let [lastProblemSolved, setLastProblemSolved] = useState(null);
-    let [numberOfProblemWithTag, setNumberOfProblemWithTag] = useState(null);
-    let [numberOfProblemSolved, setNumberOfProblemSolved] = useState(null);
- 
-    const handleInputChange = (e) => {
-        setInputText(e.target.value);
-    };
+const Body = () => {
+  // Search Inputs
+  const [user1Input, setUser1Input] = useState("");
+  const [user2Input, setUser2Input] = useState("");
 
-    const handleSearchClick = () => {
-        setSearchText(inputText);
-    };
-    
-    useEffect(() => {
-        if (searchText) {  
-            FetchHandleInfo();
-            FetchBestContestRank();
-            FetchLastProblemSolved();
-            FetchAllProblem();
-        }
-    }, [searchText]);
-   
-    const FetchHandleInfo = async ()=>{
-        let link="https://codeforces.com/api/user.info?handles="+searchText;
-        const data = await fetch(link);
-        const jsonData = await data.json();
-        setJsonValue(jsonData);
-   }
+  // Trigger Search
+  const [user1Search, setUser1Search] = useState("");
+  const [user2Search, setUser2Search] = useState("");
 
-   const FetchBestContestRank = async ()=>{
-    let link="https://codeforces.com/api/user.rating?handle="+searchText;
-    const data = await fetch(link);
-    const jsonData = await data.json();
-    let minRankIndex=0;
-    let minRank=100000000;
-    for(let i=0;i<jsonData.result.length;i++)
-    {
-        if(jsonData.result[i].rank<minRank)
-        {
-            minRank=jsonData.result[i].rank;
-            minRankIndex=i;
-        }
+  // User Data
+  const [userInfo, setUserInfo] = useState(null);
+  const [bestContest, setBestContest] = useState(null);
+  const [lastSolvedProblem, setLastSolvedProblem] = useState(null);
+  const [solvedProblemCount, setSolvedProblemCount] = useState(null);
+  const [tagStatistics, setTagStatistics] = useState(null);
+
+  const handleCompareClick = () => {
+    setUser1Search(user1Input);
+    setUser2Search(user2Input);
+  };
+
+  useEffect(() => {
+    if (user1Search) {
+      loadUser(user1Search);
     }
-    setBestRankData(jsonData.result[minRankIndex]);
-   }
+  }, [user1Search]);
 
-   const  FetchLastProblemSolved = async ()=>{
-    let link="https://codeforces.com/api/user.status?handle="+searchText+"&from=1&count=1";
-    const data = await fetch(link);
-    const jsonData = await data.json();
-    setLastProblemSolved(jsonData.result[0].problem);
-   }
-
-   const FetchAllProblem = async ()=>{
-    let link="https://codeforces.com/api/user.status?handle="+searchText;
-    const data = await fetch(link);
-    const jsonData = await data.json();
-    const uniqueJson = (arr) => {
+  const uniqueJson = (arr) => {
     const uniqueSet = new Set();
-    
-    return arr.filter(item => {
-        const uniqueKey = item.problem.contestId + item.problem.index;
-        if (!uniqueSet.has(uniqueKey) && item.verdict=="OK") {
+
+    return arr.filter((item) => {
+      const uniqueKey = item.problem.contestId + item.problem.index;
+
+      if (!uniqueSet.has(uniqueKey) && item.verdict === "OK") {
         uniqueSet.add(uniqueKey);
         return true;
-        }
-        return false;
+      }
+
+      return false;
     });
-    };
+  };
 
-    const countTags = (arr) => {
-        const tagMap = new Map();
-        arr.forEach(item => {
-          item.problem.tags.forEach(tag => {
-            if (tagMap.has(tag)) {
-              tagMap.set(tag, tagMap.get(tag) + 1);
-            } else {
-              tagMap.set(tag, 1);
-            }
-          });
-        });
-        return tagMap;
-      };
-      
-    const filteredArray = uniqueJson(jsonData.result);
+  const countTags = (arr) => {
+    const tagMap = new Map();
 
-    const filteredArrayLength=filteredArray.length;
-    
-    setNumberOfProblemSolved(filteredArrayLength);
+    arr.forEach((item) => {
+      item.problem.tags.forEach((tag) => {
+        tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+      });
+    });
 
-    const tagMap = countTags(filteredArray);
+    return tagMap;
+  };
 
-    // Print the tagMap
-    // tagMap.forEach((value, key) => {
-    // console.log(`${key}: ${value}`);
-    // });
+  const loadUser = async (handle) => {
+    try {
+      const data = await fetchUserData(handle);
 
-    setNumberOfProblemWithTag(tagMap);
-   
+      setUserInfo(data.info);
+
+      const ratingHistory = data.rating.result;
+
+      let bestContestData = ratingHistory[0];
+
+      for (const contest of ratingHistory) {
+        if (contest.rank < bestContestData.rank) {
+          bestContestData = contest;
+        }
+      }
+
+      setBestContest(bestContestData);
+
+      setLastSolvedProblem(data.latest.result[0].problem);
+
+      const solvedProblems = uniqueJson(data.all.result);
+
+      setSolvedProblemCount(solvedProblems.length);
+
+      setTagStatistics(countTags(solvedProblems));
+    } catch (error) {
+      console.error(error);
     }
+  };
 
+  return (
+    <div id="body">
 
-    
-  
-    
-    return(
-        
-        <div id="body">
-            
-            <div className="compare-search">
+      <div className="compare-search">
 
-                <div className="search-box">
+        <div className="search-box">
+          <label>User 1</label>
 
-                    <label>User 1</label>
-
-                    <input
-                        type="text"
-                        placeholder="tourist"
-                        className="search-bar"
-                        onChange={handleInputChange}
-                    />
-
-                </div>
-
-                <div className="search-box">
-
-                    <label>User 2</label>
-
-                    <input
-                        type="text"
-                        placeholder="jiangly"
-                        className="search-bar"
-                        disabled
-                    />
-
-                </div>
-
-                <button
-                    className="search-button"
-                    onClick={handleSearchClick}
-                >
-                    Compare
-                </button>
-
-            </div>
-
-
-
-            {
-               JsonValue===null &&
-                 <CartShimmer/>
-            }
-
-            
-            
-            {
-                JsonValue!==null && bestRankData!==null && lastProblemSolved!==null && numberOfProblemWithTag!==null && numberOfProblemSolved!=null && 
-                <UserProfile
-                    user={JsonValue.result[0]}
-                    bestRankData={bestRankData}
-                    lastProblemSolved={lastProblemSolved}
-                    numberOfProblemSolved={numberOfProblemSolved}
-                    numberOfProblemWithTag={numberOfProblemWithTag}
-                />
-            }
+          <input
+            type="text"
+            placeholder="tourist"
+            className="search-bar"
+            onChange={(e) => setUser1Input(e.target.value)}
+          />
         </div>
-    )
-}
+
+        <div className="search-box">
+          <label>User 2</label>
+
+          <input
+            type="text"
+            placeholder="jiangly"
+            className="search-bar"
+            onChange={(e) => setUser2Input(e.target.value)}
+          />
+        </div>
+
+        <button
+          className="search-button"
+          onClick={handleCompareClick}
+        >
+          Compare
+        </button>
+
+      </div>
+
+      {userInfo === null && <CartShimmer />}
+
+      {userInfo &&
+        bestContest &&
+        lastSolvedProblem &&
+        solvedProblemCount !== null &&
+        tagStatistics && (
+
+          <UserProfile
+            user={userInfo.result[0]}
+            bestRankData={bestContest}
+            lastProblemSolved={lastSolvedProblem}
+            numberOfProblemSolved={solvedProblemCount}
+            numberOfProblemWithTag={tagStatistics}
+          />
+
+      )}
+
+    </div>
+  );
+};
 
 export default Body;

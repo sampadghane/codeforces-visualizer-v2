@@ -1,6 +1,14 @@
+// TODO:
+// 1. Refactor API calls into fetchUserData()
+// 2. Replace multiple states with a single user object
+// 3. Enable User 2 input
+// 4. Compare two Codeforces users
+
+
 import { useState, useEffect } from "react";
 import CartShimmer from "./CartShimmer";
 import UserProfile from "./UserProfile";
+import { fetchUserData } from "../services/codeforcesApi";
 
 let Body=()=>{
    
@@ -108,16 +116,50 @@ let Body=()=>{
     setNumberOfProblemWithTag(tagMap);
    
     }
-   
+
+
+    
   
     
     return(
         
         <div id="body">
             
-            <div className="search-container">
-               <input type="text" placeholder="Enter Your User ID" className="search-bar"  onChange={handleInputChange}/>
-               <button type="submit" className="search-button" onClick={handleSearchClick}>Search</button>
+            <div className="compare-search">
+
+                <div className="search-box">
+
+                    <label>User 1</label>
+
+                    <input
+                        type="text"
+                        placeholder="tourist"
+                        className="search-bar"
+                        onChange={handleInputChange}
+                    />
+
+                </div>
+
+                <div className="search-box">
+
+                    <label>User 2</label>
+
+                    <input
+                        type="text"
+                        placeholder="jiangly"
+                        className="search-bar"
+                        disabled
+                    />
+
+                </div>
+
+                <button
+                    className="search-button"
+                    onClick={handleSearchClick}
+                >
+                    Compare
+                </button>
+
             </div>
 
 

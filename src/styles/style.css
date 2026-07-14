@@ -6,42 +6,35 @@
   }
   
   /* Styling for the header */
-  #header {
-    background-color: #3e5b5f; /* Green background */
-    color: white; /* White text */
-    padding: 20px; /* Some padding */
-    text-align: center; /* Centered text */
-  }
-  
-  /* Styling for the navigation links */
-  #header nav ul {
-    list-style-type: none; /* Remove bullets */
-  }
-  
-  #header nav ul li {
-    display: inline; /* Display list items in a row */
-    margin: 0 10px; /* Add some space between items */
-  }
-  
-  #header nav ul li a {
-    color: white; /* White text for links */
-    text-decoration: none; /* Remove underline from links */
-    font-weight: bold; /* Bold text */
-    padding: 5px 10px; /* Some padding */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-  }
-  
-  #header nav ul li a:hover {
-    background-color: #b7c3b7; /* Slightly darker green on hover */
-  }
+  /* Header */
+#header {
+  background: #3e5b5f;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
 
-  #image{
-    width: 350px;
-    height: 70px;
-    margin: 10px;
-    border-radius: 10px;
-  }
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#header h1 {
+  margin-top: 16px;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #d9e6e6;
+  font-size: 1rem;
+}
+
+#image {
+  width: 260px;
+  height: auto;
+  border-radius: 8px;
+}
 
   .search-container {
     display: flex;
@@ -78,44 +71,35 @@
 
 
   #footer {
-    background-color: #333; /* Dark background */
-    color: white; /* White text */
-    padding: 20px 0; /* Some padding */
-    text-align: center; /* Centered text */
-    position: fixed; /* Fixed position at the bottom */
-    width: 100%; /* Full width */
-    height: 90px;
-    bottom: 0; /* Align to bottom */
-  }
-  
-  #footer .footer-content {
-    max-width: 1000px; /* Max width for the content */
-    margin: 0 auto; /* Center the content */
-  }
-  
-  #footer .footer-content p {
-    margin: 10px 0; /* Margin for the paragraph */
-  }
-  
-  #footer .social-links {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove padding */
-  }
-  
-  #footer .social-links li {
-    display: inline; /* Display list items in a row */
-    margin: 0 10px; /* Add some space between items */
-  }
-  
-  #footer .social-links li a {
-    color: white; /* White text for links */
-    text-decoration: none; /* Remove underline from links */
-    font-size: 18px; /* Font size */
-  }
-  
-  #footer .social-links li a:hover {
-    text-decoration: underline; /* Underline on hover */
-  }
+  background: #2f2f2f;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  margin-top: 12px;
+  padding: 0;
+}
+
+.social-links a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: white;
+}
 
   .user-details {
     display: flex; /* Display flex for image and details side by side */
@@ -204,5 +188,65 @@
   a {
     text-decoration: none;
     color: black;
+}
+.user-profile {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    margin: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.profile-left {
+    width: 280px;
+    text-align: center;
+}
+
+.user-image {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.profile-left h2 {
+    margin-top: 15px;
+}
+
+.profile-left p {
+    color: gray;
+    margin-top: 5px;
+}
+
+.profile-right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: 0.25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    color: #555;
+}
+
+.stat-card p {
+    margin-top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #2b7a78;
 }
   

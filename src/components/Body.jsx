@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CartShimmer from "./CartShimmer";
+import UserProfile from "./UserProfile";
 
 let Body=()=>{
    
@@ -130,26 +131,13 @@ let Body=()=>{
             
             {
                 JsonValue!==null && bestRankData!==null && lastProblemSolved!==null && numberOfProblemWithTag!==null && numberOfProblemSolved!=null && 
-                <div className="user-details">
-                <img src={JsonValue.result[0].titlePhoto} alt="User Image" className="user-image"/>
-                <div className="details">
-                <p><strong>Name:</strong> {JsonValue.result[0].firstName+" "+JsonValue.result[0].lastName}</p>
-                <p><strong>From:</strong> {JsonValue.result[0].city+", "+JsonValue.result[0].country}</p>
-                <p><strong>College Name:</strong> {JsonValue.result[0].organization}</p>
-                <p><strong>Current Rating:</strong> {JsonValue.result[0].rating+" "+JsonValue.result[0].rank}</p>
-                <p><strong>Maximum Rating:</strong> {JsonValue.result[0].maxRating+" "+JsonValue.result[0].maxRank}</p>
-                <p><strong>Total Friends:</strong> {JsonValue.result[0].friendOfCount}</p>
-                <p><strong>Best Rank:</strong> {bestRankData.rank+" in "+bestRankData.contestName}</p>
-                <a href={"https://codeforces.com/problemset/problem/"+lastProblemSolved.contestId+"/"+lastProblemSolved.index} ><strong>Last Problem Solved:</strong> {lastProblemSolved.index+". "+lastProblemSolved.name+" Tags : "+lastProblemSolved.tags.join(' ,')+" "}</a>
-                <p><strong>Total Problem Solved:</strong> {" "+numberOfProblemSolved}</p>
-                <p><strong>Problem With Tag Wise:</strong> {Array.from(numberOfProblemWithTag.entries()).map(([key, value]) => (
-                    <div key={key}>
-                    {key}: {value}
-                    </div>
-                ))}</p>
-                </div>
-                </div>
-               
+                <UserProfile
+                    user={JsonValue.result[0]}
+                    bestRankData={bestRankData}
+                    lastProblemSolved={lastProblemSolved}
+                    numberOfProblemSolved={numberOfProblemSolved}
+                    numberOfProblemWithTag={numberOfProblemWithTag}
+                />
             }
         </div>
     )

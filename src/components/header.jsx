@@ -1,19 +1,21 @@
-let Header=()=>{
-    return (
-      <div id="header">
-         <h1>Welcome to Codeforces Visualizer</h1>
-         <img id="image" src="https://codeforces.org/s/73673/images/codeforces-sponsored-by-ton.png" alt="Codeforces"></img>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      </div>
-    )   
-  }
-  
-  export default Header
+const Header = () => {
+  return (
+    <header id="header">
+      <div className="header-content">
+        <img
+          id="image"
+          src="https://codeforces.org/s/73673/images/codeforces-sponsored-by-ton.png"
+          alt="Codeforces Logo"
+        />
 
+        <h1>Codeforces Visualizer</h1>
+
+        <p className="subtitle">
+          Analyze competitive programming profiles with ease.
+        </p>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

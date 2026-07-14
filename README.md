@@ -9,13 +9,24 @@ This project was originally built using React and Parcel. It is being migrated t
 ## Features
 
 - Search any Codeforces user
-- Display user profile information
+- Modern dashboard UI
 - View current and maximum rating
-- Find the best contest rank
-- View the latest solved problem
-- Count total unique solved problems
-- Display tag-wise problem distribution
-- Loading shimmer while fetching data
+- View total solved problems
+- View best contest rank
+- View latest solved problem
+- Analyze tag-wise solved problems
+- Loading skeleton while fetching data
+- Built with React and Vite
+---
+## Roadmap
+
+- [x] Migrate project from Parcel to Vite
+- [x] Modernize dashboard UI
+- [ ] Compare two Codeforces users
+- [ ] Rating comparison charts
+- [ ] Tag comparison charts
+- [ ] Responsive design
+- [ ] Dark mode
 
 ---
 

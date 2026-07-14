@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import CartShimmer from "./CartShimmer";
 
@@ -115,9 +114,9 @@ let Body=()=>{
         
         <div id="body">
             
-            <div class="search-container">
-               <input type="text" placeholder="Enter Your User ID" class="search-bar"  onChange={handleInputChange}/>
-               <button type="submit" class="search-button" onClick={handleSearchClick}>Search</button>
+            <div className="search-container">
+               <input type="text" placeholder="Enter Your User ID" className="search-bar"  onChange={handleInputChange}/>
+               <button type="submit" className="search-button" onClick={handleSearchClick}>Search</button>
             </div>
 
 
@@ -131,9 +130,9 @@ let Body=()=>{
             
             {
                 JsonValue!==null && bestRankData!==null && lastProblemSolved!==null && numberOfProblemWithTag!==null && numberOfProblemSolved!=null && 
-                <div class="user-details">
-                <img src={JsonValue.result[0].titlePhoto} alt="User Image" class="user-image"/>
-                <div class="details">
+                <div className="user-details">
+                <img src={JsonValue.result[0].titlePhoto} alt="User Image" className="user-image"/>
+                <div className="details">
                 <p><strong>Name:</strong> {JsonValue.result[0].firstName+" "+JsonValue.result[0].lastName}</p>
                 <p><strong>From:</strong> {JsonValue.result[0].city+", "+JsonValue.result[0].country}</p>
                 <p><strong>College Name:</strong> {JsonValue.result[0].organization}</p>

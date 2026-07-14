@@ -1,5 +1,3 @@
-import React from "react";
-
 const CartShimmer = () => {
     return (
       <div className="cart-shimmer">

@@ -13,11 +13,8 @@ const Body = () => {
   const [user2Search, setUser2Search] = useState("");
 
   // User Data
-  const [userInfo, setUserInfo] = useState(null);
-  const [bestContest, setBestContest] = useState(null);
-  const [lastSolvedProblem, setLastSolvedProblem] = useState(null);
-  const [solvedProblemCount, setSolvedProblemCount] = useState(null);
-  const [tagStatistics, setTagStatistics] = useState(null);
+  const [user1, setUser1] = useState(null);
+  const [user2, setUser2] = useState(null);
 
   const handleCompareClick = () => {
     setUser1Search(user1Input);
@@ -26,9 +23,12 @@ const Body = () => {
 
   useEffect(() => {
     if (user1Search) {
-      loadUser(user1Search);
+      loadUser(user1Search, setUser1);
     }
-  }, [user1Search]);
+    if (user2Search) {
+      loadUser(user2Search, setUser2);
+    }
+  }, [user1Search, user2Search]);
 
   const uniqueJson = (arr) => {
     const uniqueSet = new Set();
@@ -57,35 +57,37 @@ const Body = () => {
     return tagMap;
   };
 
-  const loadUser = async (handle) => {
+  const loadUser = async (handle, setter) => {
     try {
-      const data = await fetchUserData(handle);
 
-      setUserInfo(data.info);
+        const data = await fetchUserData(handle);
 
-      const ratingHistory = data.rating.result;
+        const ratingHistory = data.rating.result;
 
-      let bestContestData = ratingHistory[0];
+        let bestContest = ratingHistory[0];
 
-      for (const contest of ratingHistory) {
-        if (contest.rank < bestContestData.rank) {
-          bestContestData = contest;
+        for (const contest of ratingHistory) {
+            if (contest.rank < bestContest.rank) {
+                bestContest = contest;
+            }
         }
-      }
 
-      setBestContest(bestContestData);
+        const solvedProblems = uniqueJson(data.all.result);
 
-      setLastSolvedProblem(data.latest.result[0].problem);
+        const tagStatistics = countTags(solvedProblems);
 
-      const solvedProblems = uniqueJson(data.all.result);
+        setter({
+            info: data.info.result[0],
+            bestContest,
+            lastSolvedProblem: data.latest.result[0].problem,
+            solvedProblemCount: solvedProblems.length,
+            tagStatistics
+        });
 
-      setSolvedProblemCount(solvedProblems.length);
-
-      setTagStatistics(countTags(solvedProblems));
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
-  };
+};
 
   return (
     <div id="body">
@@ -123,21 +125,32 @@ const Body = () => {
 
       </div>
 
-      {userInfo === null && <CartShimmer />}
+      {user1 === null && <CartShimmer />}
 
-      {userInfo &&
-        bestContest &&
-        lastSolvedProblem &&
-        solvedProblemCount !== null &&
-        tagStatistics && (
+      {(user1||user2) &&(
 
-          <UserProfile
-            user={userInfo.result[0]}
-            bestRankData={bestContest}
-            lastProblemSolved={lastSolvedProblem}
-            numberOfProblemSolved={solvedProblemCount}
-            numberOfProblemWithTag={tagStatistics}
-          />
+          <div className="comparison-container">
+
+            {user1 && (
+                <UserProfile
+                    user={user1.info}
+                    bestRankData={user1.bestContest}
+                    lastProblemSolved={user1.lastSolvedProblem}
+                    numberOfProblemSolved={user1.solvedProblemCount}
+                    numberOfProblemWithTag={user1.tagStatistics}
+                />
+            )}
+
+            {user2 && (
+                <UserProfile
+                    user={user2.info}
+                    bestRankData={user2.bestContest}
+                    lastProblemSolved={user2.lastSolvedProblem}
+                    numberOfProblemSolved={user2.solvedProblemCount}
+                    numberOfProblemWithTag={user2.tagStatistics}
+                />
+            )}
+          </div>
 
       )}
 

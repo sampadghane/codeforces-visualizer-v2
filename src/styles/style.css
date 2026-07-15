@@ -272,4 +272,12 @@
 .search-box input {
     width: 260px;
 }
+.comparison-container {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
   

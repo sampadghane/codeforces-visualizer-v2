@@ -280,4 +280,9 @@
     margin-top: 30px;
     flex-wrap: wrap;
 }
+.winner{
+    font-weight:bold;
+    color:#2e7d32;
+    background:#e8f5e9;
+}
   

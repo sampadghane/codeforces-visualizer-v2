@@ -1,55 +1,101 @@
 const ComparisonTable = ({ user1, user2 }) => {
-  return (
-    <div className="comparison-table">
-      <h2>Comparison</h2>
 
-      <table>
+    const higher = (a, b) => a > b;
+    const lower = (a, b) => a < b;
 
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>{user1.info.handle}</th>
-            <th>{user2.info.handle}</th>
-          </tr>
-        </thead>
+    return (
+        <div className="comparison-table">
 
-        <tbody>
+            <h2>Comparison</h2>
 
-          <tr>
-            <td>Current Rating</td>
-            <td>{user1.info.rating}</td>
-            <td>{user2.info.rating}</td>
-          </tr>
+            <table>
 
-          <tr>
-            <td>Maximum Rating</td>
-            <td>{user1.info.maxRating}</td>
-            <td>{user2.info.maxRating}</td>
-          </tr>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>{user1.info.handle}</th>
+                        <th>{user2.info.handle}</th>
+                    </tr>
+                </thead>
 
-          <tr>
-            <td>Problems Solved</td>
-            <td>{user1.solvedProblemCount}</td>
-            <td>{user2.solvedProblemCount}</td>
-          </tr>
+                <tbody>
 
-          <tr>
-            <td>Friends</td>
-            <td>{user1.info.friendOfCount}</td>
-            <td>{user2.info.friendOfCount}</td>
-          </tr>
+                    <tr>
+                        <td>Current Rating</td>
 
-          <tr>
-            <td>Best Contest Rank</td>
-            <td>{user1.bestContest.rank}</td>
-            <td>{user2.bestContest.rank}</td>
-          </tr>
+                        <td className={higher(user1.info.rating, user2.info.rating) ? "winner" : ""}>
+                            {higher(user1.info.rating, user2.info.rating) && "🏆 "}
+                            {user1.info.rating}
+                        </td>
 
-        </tbody>
+                        <td className={higher(user2.info.rating, user1.info.rating) ? "winner" : ""}>
+                            {higher(user2.info.rating, user1.info.rating) && "🏆 "}
+                            {user2.info.rating}
+                        </td>
+                    </tr>
 
-      </table>
-    </div>
-  );
+                    <tr>
+                        <td>Maximum Rating</td>
+
+                        <td className={higher(user1.info.maxRating, user2.info.maxRating) ? "winner" : ""}>
+                            {higher(user1.info.maxRating, user2.info.maxRating) && "🏆 "}
+                            {user1.info.maxRating}
+                        </td>
+
+                        <td className={higher(user2.info.maxRating, user1.info.maxRating) ? "winner" : ""}>
+                            {higher(user2.info.maxRating, user1.info.maxRating) && "🏆 "}
+                            {user2.info.maxRating}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Problems Solved</td>
+
+                        <td className={higher(user1.solvedProblemCount, user2.solvedProblemCount) ? "winner" : ""}>
+                            {higher(user1.solvedProblemCount, user2.solvedProblemCount) && "🏆 "}
+                            {user1.solvedProblemCount}
+                        </td>
+
+                        <td className={higher(user2.solvedProblemCount, user1.solvedProblemCount) ? "winner" : ""}>
+                            {higher(user2.solvedProblemCount, user1.solvedProblemCount) && "🏆 "}
+                            {user2.solvedProblemCount}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Friends</td>
+
+                        <td className={higher(user1.info.friendOfCount, user2.info.friendOfCount) ? "winner" : ""}>
+                            {higher(user1.info.friendOfCount, user2.info.friendOfCount) && "🏆 "}
+                            {user1.info.friendOfCount}
+                        </td>
+
+                        <td className={higher(user2.info.friendOfCount, user1.info.friendOfCount) ? "winner" : ""}>
+                            {higher(user2.info.friendOfCount, user1.info.friendOfCount) && "🏆 "}
+                            {user2.info.friendOfCount}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Best Contest Rank</td>
+
+                        <td className={lower(user1.bestContest.rank, user2.bestContest.rank) ? "winner" : ""}>
+                            {lower(user1.bestContest.rank, user2.bestContest.rank) && "🏆 "}
+                            {user1.bestContest.rank}
+                        </td>
+
+                        <td className={lower(user2.bestContest.rank, user1.bestContest.rank) ? "winner" : ""}>
+                            {lower(user2.bestContest.rank, user1.bestContest.rank) && "🏆 "}
+                            {user2.bestContest.rank}
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    );
 };
 
 export default ComparisonTable;

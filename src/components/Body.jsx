@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CartShimmer from "./CartShimmer";
 import UserProfile from "./UserProfile";
 import { fetchUserData } from "../services/codeforcesApi";
+import ComparisonTable from "./ComparisonTable";
 
 const Body = () => {
   // Search Inputs
@@ -17,17 +18,24 @@ const Body = () => {
   const [user2, setUser2] = useState(null);
 
   const handleCompareClick = () => {
+    console.log("Compare clicked");
+    console.log(user1Input, user2Input);
+
     setUser1Search(user1Input);
     setUser2Search(user2Input);
   };
 
   useEffect(() => {
-    if (user1Search) {
-      loadUser(user1Search, setUser1);
-    }
-    if (user2Search) {
-      loadUser(user2Search, setUser2);
-    }
+    console.log("useEffect fired");
+    const loadUsers = async (handle, setter) => {
+      if (user1Search) {
+        await loadUser(user1Search, setUser1);
+      }
+      if (user2Search) {
+        await loadUser(user2Search, setUser2);
+      }
+    };
+    loadUsers();
   }, [user1Search, user2Search]);
 
   const uniqueJson = (arr) => {
@@ -58,6 +66,7 @@ const Body = () => {
   };
 
   const loadUser = async (handle, setter) => {
+    console.log("Loading", handle);
     try {
 
         const data = await fetchUserData(handle);
@@ -75,7 +84,12 @@ const Body = () => {
         const solvedProblems = uniqueJson(data.all.result);
 
         const tagStatistics = countTags(solvedProblems);
-
+        console.log({
+          info: data.info,
+          rating: data.rating,
+          latest: data.latest,
+          all: data.all
+      });
         setter({
             info: data.info.result[0],
             bestContest,
@@ -83,9 +97,11 @@ const Body = () => {
             solvedProblemCount: solvedProblems.length,
             tagStatistics
         });
+        console.log("Setter executed");
 
     } catch (error) {
-        console.error(error);
+      console.error(error);
+      alert(error.message);
     }
 };
 
@@ -152,6 +168,12 @@ const Body = () => {
             )}
           </div>
 
+      )}
+      {user1 && user2 && (
+        <ComparisonTable
+            user1={user1}
+            user2={user2}
+        />
       )}
 
     </div>

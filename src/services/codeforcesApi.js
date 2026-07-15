@@ -1,42 +1,45 @@
 export const fetchUserData = async (handle) => {
 
-    const [
+    const infoRes = await fetch(
+        `https://codeforces.com/api/user.info?handles=${handle}`
+    );
 
-        infoRes,
-        ratingRes,
-        latestRes,
-        allRes
+    const info = await infoRes.json();
+    if (info.status !== "OK") {
+        throw new Error(info.comment || "Failed to fetch user info");
+    }
 
-    ] = await Promise.all([
+    const ratingRes = await fetch(
+        `https://codeforces.com/api/user.rating?handle=${handle}`
+    );
 
-        fetch(
-            `https://codeforces.com/api/user.info?handles=${handle}`
-        ),
+    const rating = await ratingRes.json();
+    if (info.status !== "OK") {
+        throw new Error(info.comment || "Failed to fetch user info");
+    }
 
-        fetch(
-            `https://codeforces.com/api/user.rating?handle=${handle}`
-        ),
+    const latestRes = await fetch(
+        `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`
+    );
 
-        fetch(
-            `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`
-        ),
+    const latest = await latestRes.json();
+    if (info.status !== "OK") {
+        throw new Error(info.comment || "Failed to fetch user info");
+    }
 
-        fetch(
-            `https://codeforces.com/api/user.status?handle=${handle}`
-        )
+    const allRes = await fetch(
+        `https://codeforces.com/api/user.status?handle=${handle}`
+    );
 
-    ]);
+    const all = await allRes.json();
+    if (info.status !== "OK") {
+        throw new Error(info.comment || "Failed to fetch user info");
+    }
 
     return {
-
-        info: await infoRes.json(),
-
-        rating: await ratingRes.json(),
-
-        latest: await latestRes.json(),
-
-        all: await allRes.json()
-
+        info,
+        rating,
+        latest,
+        all
     };
-
 };

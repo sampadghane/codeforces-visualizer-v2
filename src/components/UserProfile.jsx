@@ -45,13 +45,14 @@ const UserProfile = ({
         </div>
 
         <div className="stat-card">
-          <h3>Best Rank</h3>
-          <p>{bestRankData.rank}</p>
+          <h3>Best Contest</h3>
+          <p>{bestRankData.contestName}</p>
+          <small>Rank #{bestRankData.rank}</small>
         </div>
 
         <div className="stat-card">
           <h3>Last Solved</h3>
-          <p>{lastProblemSolved.index}</p>
+          <p>{lastProblemSolved.index}, {lastProblemSolved.name}</p>
         </div>
       </div>
     </div>

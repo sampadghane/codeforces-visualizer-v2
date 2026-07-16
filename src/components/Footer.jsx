@@ -1,3 +1,4 @@
+import "../styles/footer.css";
 let Footer=()=>{
     return(
         <footer id="footer">

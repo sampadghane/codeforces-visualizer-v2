@@ -1,60 +1,70 @@
+import "../styles/profile.css";
 const UserProfile = ({
   user,
   bestRankData,
   lastProblemSolved,
   numberOfProblemSolved,
-  numberOfProblemWithTag,
 }) => {
   return (
     <div className="user-profile">
-      <div className="profile-left">
+
+      <div className="profile-header">
+
         <img
           src={user.titlePhoto}
           alt={user.handle}
           className="user-image"
         />
 
-        <h2>{user.handle}</h2>
+        <div className="profile-info">
+          <h2>{user.handle}</h2>
+          <p>{user.rank}</p>
+          <p>{user.city}, {user.country}</p>
+        </div>
 
-        <p>{user.rank}</p>
-
-        <p>
-          {user.city}, {user.country}
-        </p>
       </div>
 
-      <div className="profile-right">
-        <div className="stat-card">
-          <h3>Current Rating</h3>
-          <p>{user.rating}</p>
+      <div className="profile-stats">
+
+        <div className="stat-row">
+          <span>Current Rating</span>
+          <strong>{user.rating}</strong>
         </div>
 
-        <div className="stat-card">
-          <h3>Maximum Rating</h3>
-          <p>{user.maxRating}</p>
+        <div className="stat-row">
+          <span>Maximum Rating</span>
+          <strong>{user.maxRating}</strong>
         </div>
 
-        <div className="stat-card">
-          <h3>Problems Solved</h3>
-          <p>{numberOfProblemSolved}</p>
+        <div className="stat-row">
+          <span>Problems Solved</span>
+          <strong>{numberOfProblemSolved}</strong>
         </div>
 
-        <div className="stat-card">
-          <h3>Friends</h3>
-          <p>{user.friendOfCount}</p>
+        <div className="stat-row">
+          <span>Friends</span>
+          <strong>{user.friendOfCount}</strong>
         </div>
 
-        <div className="stat-card">
-          <h3>Best Contest</h3>
-          <p>{bestRankData.contestName}</p>
-          <small>Rank #{bestRankData.rank}</small>
+        <div className="stat-row">
+          <span>Best Contest</span>
+          <strong>{bestRankData.contestName}</strong>
         </div>
 
-        <div className="stat-card">
-          <h3>Last Solved</h3>
-          <p>{lastProblemSolved.index}, {lastProblemSolved.name}</p>
+        <div className="stat-row">
+          <span>Contest Rank</span>
+          <strong>#{bestRankData.rank}</strong>
         </div>
+
+        <div className="stat-row">
+          <span>Last Solved</span>
+          <strong>
+            {lastProblemSolved.index}. {lastProblemSolved.name}
+          </strong>
+        </div>
+
       </div>
+
     </div>
   );
 };

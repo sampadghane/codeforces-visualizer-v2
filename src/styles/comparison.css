@@ -1,0 +1,51 @@
+.comparison-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 40px auto;
+}
+.comparison-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.comparison-table h2 {
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.comparison-table table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.comparison-table th {
+    text-align: center;
+    background: #3e5b5f;
+    color: white;
+    padding: 14px 22px;
+    font-size: 18px;
+}
+
+.comparison-table td {
+    padding: 14px 22px;
+    text-align: center;
+    font-size: 17px;
+    border-bottom: 1px solid #eee;
+}
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table tr:hover {
+    background: #f7f9fa;
+}
+
+.winner {
+    background: #d4edda;
+    color: #155724;
+    font-weight: bold;
+}

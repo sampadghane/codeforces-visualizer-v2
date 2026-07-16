@@ -3,7 +3,8 @@ import CartShimmer from "./CartShimmer";
 import UserProfile from "./UserProfile";
 import { fetchUserData } from "../services/codeforcesApi";
 import ComparisonTable from "./ComparisonTable";
-
+import "../styles/body.css";
+import "../styles/comparison.css";
 const Body = () => {
   // Search Inputs
   const [user1Input, setUser1Input] = useState("");
@@ -31,7 +32,11 @@ const Body = () => {
     setUser1Search(user1Input.trim());
     setUser2Search(user2Input.trim());
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+        handleCompareClick();
+    }
+  };
   useEffect(() => {
     const loadUsers = async (handle, setter) => {
       try{
@@ -127,7 +132,9 @@ const Body = () => {
             type="text"
             placeholder="tourist"
             className="search-bar"
+            value={user1Input}
             onChange={(e) => setUser1Input(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
@@ -138,15 +145,18 @@ const Body = () => {
             type="text"
             placeholder="jiangly"
             className="search-bar"
+            value={user2Input}
             onChange={(e) => setUser2Input(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
         <button
           className="search-button"
           onClick={handleCompareClick}
+          disabled={loading}
         >
-          Compare
+          {loading?"Comparing...":"Compare"}
         </button>
 
       </div>

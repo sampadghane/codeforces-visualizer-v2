@@ -1,0 +1,57 @@
+.cart-shimmer {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    background: white;
+    margin: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.shimmer-image {
+    width: 120px;
+    height: 120px;
+    background: #ddd;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.shimmer-line {
+    height: 18px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    background: #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-line.short {
+    width: 50%;
+}
+
+.shimmer-image::before,
+.shimmer-line::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.6),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}

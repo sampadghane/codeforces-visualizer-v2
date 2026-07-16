@@ -1,12 +1,13 @@
+import "../styles/comparison.css";
 const ComparisonTable = ({ user1, user2 }) => {
 
     const higher = (a, b) => a > b;
     const lower = (a, b) => a < b;
 
     return (
-        <div className="wnner">
+        <div className="comparison-tabl">
 
-            <h2>Comparison</h2>
+            <h2>🏆 Head-to-Head Comparison</h2>
 
             <table>
 

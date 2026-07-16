@@ -1,3 +1,4 @@
+import "../styles/shimmer.css";
 const CartShimmer = () => {
     return (
       <div className="cart-shimmer">

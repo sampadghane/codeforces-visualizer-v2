@@ -4,7 +4,7 @@ const ComparisonTable = ({ user1, user2 }) => {
     const lower = (a, b) => a < b;
 
     return (
-        <div className="comparison-table">
+        <div className="wnner">
 
             <h2>Comparison</h2>
 

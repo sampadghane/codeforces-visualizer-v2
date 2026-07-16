@@ -17,22 +17,32 @@ const Body = () => {
   const [user1, setUser1] = useState(null);
   const [user2, setUser2] = useState(null);
 
-  const handleCompareClick = () => {
-    console.log("Compare clicked");
-    console.log(user1Input, user2Input);
+  const [loading, setLoading] = useState(false);
 
-    setUser1Search(user1Input);
-    setUser2Search(user2Input);
+  const handleCompareClick = () => {
+    if(!user1Input.trim()||!user2Input.trim()){
+      alert("please enter both usernames.");
+      return;
+    }
+    setLoading(true);
+    setUser1(null);
+    setUser2(null);
+
+    setUser1Search(user1Input.trim());
+    setUser2Search(user2Input.trim());
   };
 
   useEffect(() => {
-    console.log("useEffect fired");
     const loadUsers = async (handle, setter) => {
-      if (user1Search) {
-        await loadUser(user1Search, setUser1);
-      }
-      if (user2Search) {
-        await loadUser(user2Search, setUser2);
+      try{
+        if (user1Search) {
+          await loadUser(user1Search, setUser1);
+        }
+        if (user2Search) {
+          await loadUser(user2Search, setUser2);
+        }
+      }finally{
+        setLoading(false);
       }
     };
     loadUsers();
@@ -141,7 +151,12 @@ const Body = () => {
 
       </div>
 
-      {user1 === null && <CartShimmer />}
+      {loading && (
+        <div className="comparison-container">
+          <CartShimmer />
+          <CartShimmer />
+        </div>  
+      )}
 
       {(user1||user2) &&(
 

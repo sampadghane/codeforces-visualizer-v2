@@ -22,11 +22,11 @@ This project was originally built using React and Parcel. It is being migrated t
 
 - [x] Migrate project from Parcel to Vite
 - [x] Modernize dashboard UI
-- [ ] Compare two Codeforces users
-- [ ] Rating comparison charts
-- [ ] Tag comparison charts
-- [ ] Responsive design
-- [ ] Dark mode
+- [x] Compare two Codeforces users
+- [x] Rating comparison charts
+- [x] Tag comparison charts
+- [x] Responsive design
+
 
 ---
 
